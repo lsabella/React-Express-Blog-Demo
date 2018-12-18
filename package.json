@@ -86,9 +86,11 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.30.1",
+    "husky": "^1.2.1",
     "install": "^0.10.1",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
+    "lint-staged": "^8.1.0",
     "node-loader": "^0.6.0",
     "node-sass": "^4.5.3",
     "nodemon": "^1.12.0",
@@ -112,6 +114,6 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx}": "eslint --fix"
+    "app/**/*.{js,jsx}": "eslint --fix"
   }
 }
