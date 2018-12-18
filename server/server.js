@@ -5,6 +5,7 @@ import httpProxy from 'http-proxy'
 import compression from 'compression'
 import connectHistoryApiFallback from 'connect-history-api-fallback'
 import config from '../config/config'
+import fs from 'fs'
 
 const app = new Express();
 const port = config.port;
@@ -18,7 +19,7 @@ app.use('/', connectHistoryApiFallback());
 app.use('/',Express.static(path.join(__dirname,"..",'build')));
 app.use('/',Express.static(path.join(__dirname,"..",'static')));
 
-
+// targetUrl: http://127.0.0.1:3030
 const targetUrl = `http://${config.apiHost}:${config.apiPort}`;
 const proxy = httpProxy.createProxyServer({
     target:targetUrl
@@ -47,6 +48,13 @@ if(process.env.NODE_ENV!=='production'){
 }
 
 app.listen(port,(err)=>{
+    fs.writeFile("/Users/user18/Desktop/test.md",JSON.stringify(process.env),(err)=>{
+        if (err) {
+            console.log('写入文件失败');
+        } else {
+            console.log('写入文件成功');
+        }
+    });
     if(err){
         console.error(err)
     }else{

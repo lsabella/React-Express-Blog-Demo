@@ -9,6 +9,8 @@ import {MD5_SUFFIX,responseClient,md5} from '../util'
 
 
 router.post('/login', (req, res) => {
+    console.log(req,res,99990,req.body)
+    console.log('md5(password + MD5_SUFFIX)', md5(password + MD5_SUFFIX),'md5(password + MD5_SUFFIX)')
     let {username, password} = req.body;
     if (!username) {
         responseClient(res, 400, 2, '用户名不可为空');
@@ -30,7 +32,7 @@ router.post('/login', (req, res) => {
             data.userId = userInfo._id;
             //登录成功后设置session
             req.session.userInfo = data;
-
+            console.log(data, 'data')
             responseClient(res, 200, 0, '登录成功', data);
             return;
         }
@@ -97,6 +99,7 @@ router.get('/userInfo',function (req,res) {
 });
 
 router.get('/logout',function (req,res) {
+    responseClient(res,200,0,'已退出登录，请重新登录',req.session);
     req.session.destroy();
     res.redirect('/');
 });

@@ -1,4 +1,5 @@
 import {reducer as front} from './frontReducer'
+import { reducer as logs } from './adminlog'
 import {combineReducers} from 'redux'
 import admin from './admin'
 const initialState = {
@@ -17,7 +18,8 @@ export const actionsTypes = {
     USER_REGISTER: "USER_REGISTER",
     RESPONSE_USER_INFO: "RESPONSE_USER_INFO",
     SET_MESSAGE: "SET_MESSAGE",
-    USER_AUTH:"USER_AUTH"
+    USER_AUTH:"USER_AUTH",
+    USER_LOGOUT:"USER_LOGOUT",
 };
 
 export const actions = {
@@ -44,6 +46,12 @@ export const actions = {
     user_auth:function () {
         return{
             type:actionsTypes.USER_AUTH
+        }
+    },
+    user_logout:function () {
+        return{
+            type:actionsTypes.USER_LOGOUT,
+            userInfo: {}
         }
     }
 };
@@ -79,7 +87,8 @@ export function reducer(state = initialState, action) {
 export default combineReducers({
     front,
     globalState: reducer,
-    admin
+    admin,
+    logs,
 })
 
 

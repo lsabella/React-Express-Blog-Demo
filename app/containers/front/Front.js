@@ -13,11 +13,13 @@ import NotFound from "../../components/notFound/NotFound";
 import {bindActionCreators} from 'redux'
 import {actions} from '../../reducers/adminManagerTags'
 import {actions as FrontActinos} from '../../reducers/frontReducer'
-import Login from "../home/components/login/Login";
+import Login from "../home/components/login/Login"
 import {Logined} from "../home/components/logined/Logined";
 import {actions as IndexActions} from '../../reducers/index'
+import {Button} from 'antd'
 const {get_all_tags} = actions;
 const {get_article_list} = FrontActinos;
+const {user_logout} = IndexActions;
 
 class Front extends Component{
     constructor(props){
@@ -45,7 +47,10 @@ class Front extends Component{
                         </div>
                         <div className={`${style.loginContainer}`}>
                             {this.props.userInfo.userId ?
-                                <Logined history={this.props.history} userInfo={this.props.userInfo}/> :
+                                <div>
+                                <Logined history={this.props.history} userInfo={this.props.userInfo}/>
+                                <Button onClick={() => this.props.user_logout()}>退出登录</Button>
+                                </div> :
                                 <Login login={login} register={register}/>}
                         </div>
                     </div>
@@ -78,7 +83,8 @@ function mapDispatchToProps(dispatch) {
         get_all_tags:bindActionCreators(get_all_tags,dispatch),
         get_article_list:bindActionCreators(get_article_list,dispatch),
         login: bindActionCreators(IndexActions.get_login, dispatch),
-        register: bindActionCreators(IndexActions.get_register, dispatch)
+        register: bindActionCreators(IndexActions.get_register, dispatch),
+        user_logout:bindActionCreators(user_logout,dispatch),
     }
 }
 export default connect(

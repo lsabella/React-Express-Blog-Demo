@@ -63,3 +63,15 @@ export function* user_auth () {
         }
     }
 }
+
+export function* user_logout () {
+    while (true) {
+        let request = yield take(IndexActionTypes.USER_LOGOUT);
+        let response = yield call(get,'/user/logout');
+        console.log('request response', request, response)
+        if(response&&response.code === 0){
+            yield put({type:IndexActionTypes.SET_MESSAGE,msgContent:'成功退出登录',msgType:1});
+            yield put({type:IndexActionTypes.RESPONSE_USER_INFO,data:response.data})
+        }
+    }
+}
